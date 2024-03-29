@@ -1,25 +1,50 @@
-// Use Prototype Properties to Reduce Duplicate Code
-// Since numLegs will probably have the same value for all instances of Bird, you essentially have a duplicated variable numLegs inside each Bird instance.
+// Understand Own Properties
+// In the following example, the Bird constructor defines two properties: name and numLegs:
 //
-//     This may not be an issue when there are only two instances, but imagine if there are millions of instances. That would be a lot of duplicated variables.
+//     function Bird(name) {
+//         this.name = name;
+//         this.numLegs = 2;
+//     }
 //
-//     A better way is to use the prototype of Bird. Properties in the prototype are shared among ALL instances of Bird. Here's how to add numLegs to the Bird prototype:
+// let duck = new Bird("Donald");
+// let canary = new Bird("Tweety");
+// name and numLegs are called own properties, because they are defined directly on the instance object. That means that duck and canary each has its own separate copy of these properties. In fact every instance of Bird will have its own copy of these properties. The following code adds all of the own properties of duck to the array ownProps:
 //
-// Bird.prototype.numLegs = 2;
-// Now all instances of Bird have the numLegs property.
+//     let ownProps = [];
 //
-// console.log(duck.numLegs);
-// console.log(canary.numLegs);
-// Since all instances automatically have the properties on the prototype, think of a prototype as a "recipe" for creating objects. Note that the prototype for duck and canary is part of the Bird constructor as Bird.prototype.
+// for (let property in duck) {
+//     if(duck.hasOwnProperty(property)) {
+//         ownProps.push(property);
+//     }
+// }
 //
-//     Add a numLegs property to the prototype of Dog
+// console.log(ownProps);
+// The console would display the value ["name", "numLegs"].
 //
-function Dog(name) {
+//     Add the own properties of canary to the array ownProps.
+//
+// function Bird(name) {
+//     this.name = name;
+//     this.numLegs = 2;
+// }
+//
+// let canary = new Bird("Tweety");
+// let ownProps = [];
+// // Only change code below this line
+
+function Bird(name) {
     this.name = name;
+    this.numLegs = 2;
 }
 
-Dog.prototype.numLegs = 4
+let canary = new Bird("Tweety");
+let ownProps = [];
+// Only change code below this line
 
-// Only change code above this line
-let beagle = new Dog("Snoopy");
-console.log(beagle.numLegs)
+for (let property in canary) {
+    if(canary.hasOwnProperty(property)) {
+        ownProps.push(property);
+    }
+}
+
+console.log(ownProps);

@@ -1,50 +1,42 @@
-// Understand Own Properties
-// In the following example, the Bird constructor defines two properties: name and numLegs:
+// Verify an Object's Constructor with instanceof
+// Anytime a constructor function creates a new object, that object is said to be an instance of its constructor. JavaScript gives a convenient way to verify this with the instanceof operator. instanceof allows you to compare an object to a constructor, returning true or false based on whether or not that object was created with the constructor. Here's an example:
 //
-//     function Bird(name) {
-//         this.name = name;
-//         this.numLegs = 2;
-//     }
-//
-// let duck = new Bird("Donald");
-// let canary = new Bird("Tweety");
-// name and numLegs are called own properties, because they are defined directly on the instance object. That means that duck and canary each has its own separate copy of these properties. In fact every instance of Bird will have its own copy of these properties. The following code adds all of the own properties of duck to the array ownProps:
-//
-//     let ownProps = [];
-//
-// for (let property in duck) {
-//     if(duck.hasOwnProperty(property)) {
-//         ownProps.push(property);
-//     }
-// }
-//
-// console.log(ownProps);
-// The console would display the value ["name", "numLegs"].
-//
-//     Add the own properties of canary to the array ownProps.
-//
-// function Bird(name) {
+// let Bird = function(name, color) {
 //     this.name = name;
+//     this.color = color;
 //     this.numLegs = 2;
 // }
 //
-// let canary = new Bird("Tweety");
-// let ownProps = [];
+// let crow = new Bird("Alexis", "black");
+//
+// crow instanceof Bird;
+// This instanceof method would return true.
+//
+//     If an object is created without using a constructor, instanceof will verify that it is not an instance of that constructor:
+//
+//     let canary = {
+//         name: "Mildred",
+//         color: "Yellow",
+//         numLegs: 2
+//     };
+//
+// canary instanceof Bird;
+// This instanceof method would return false.
+//
+//     Create a new instance of the House constructor, calling it myHouse and passing a number of bedrooms. Then, use instanceof to verify that it is an instance of House.
+
+// function House(numBedrooms) {
+//     this.numBedrooms = numBedrooms;
+// }
+//
 // // Only change code below this line
 
-function Bird(name) {
-    this.name = name;
-    this.numLegs = 2;
+function House(numBedrooms) {
+    this.numBedrooms = numBedrooms;
 }
 
-let canary = new Bird("Tweety");
-let ownProps = [];
 // Only change code below this line
 
-for (let property in canary) {
-    if(canary.hasOwnProperty(property)) {
-        ownProps.push(property);
-    }
-}
+let myHouse = new House(2)
 
-console.log(ownProps);
+myHouse instanceof House
