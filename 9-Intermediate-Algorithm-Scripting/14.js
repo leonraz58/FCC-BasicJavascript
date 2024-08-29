@@ -1,21 +1,33 @@
-function sumPrimes(num) {
-    // Helper function to check primality
-    function isPrime(num) {
-        const sqrt = Math.sqrt(num);
-        for (let i = 2; i <= sqrt; i++) {
-            if (num % i === 0)
-                return false;
-        }
-        return true;
-    }
+// Smallest Common Multiple
+// Find the smallest common multiple of the provided parameters that can be evenly divided by both, as well as by all sequential numbers in the range between these parameters.
+//
+//     The range will be an array of two numbers that will not necessarily be in numerical order.
+//
+//     For example, if given 1 and 3, find the smallest common multiple of both 1 and 3 that is also evenly divisible by all numbers between 1 and 3. The answer here would be 6.
 
-    // Check all numbers for primality
-    let sum = 0;
-    for (let i = 2; i <= num; i++) {
-        if (isPrime(i))
-            sum += i;
+function smallestCommons(arr) {
+    // Setup
+    const [min, max] = arr.sort((a, b) => a - b);
+    const numberDivisors = max - min + 1;
+    // Largest possible value for SCM
+    let upperBound = 1;
+    for (let i = min; i <= max; i++) {
+        upperBound *= i;
     }
-    return sum;
+    // Test all multiples of 'max'
+    for (let multiple = max; multiple <= upperBound; multiple += max) {
+        // Check if every value in range divides 'multiple'
+        let divisorCount = 0;
+        for (let i = min; i <= max; i++) {
+            // Count divisors
+            if (multiple % i === 0) {
+                divisorCount += 1;
+            }
+        }
+        if (divisorCount === numberDivisors) {
+            return multiple;
+        }
+    }
 }
 
-console.log(sumPrimes(10))
+console.log(smallestCommons([1, 5]))
